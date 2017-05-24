@@ -1,0 +1,20 @@
+<h3>Register</h3>
+<form (submit)="register()" #formData="ngForm">
+	<p>First Name: <input type="text" name="first_name" required minlength="2" [(ngModel)]="newUser.first_name" #first_name="ngModel"><span *ngIf="first_name.dirty"><span *ngIf="first_name.errors?.required">First Name field is required.</span><span *ngIf="first_name.errors?.minlength">First Name Length must be great than 2.</span></span></p>
+
+	<p>Last Name: <input type="text" name="last_name" required minlength="2" [(ngModel)]="newUser.last_name" #last_name="ngModel"><span *ngIf="last_name.dirty"><span *ngIf="last_name.errors?.required">Last Name field is required.</span><span *ngIf="last_name.errors?.minlength">Last Name Length must be great than 2.</span></span></p>
+
+	<p>Email: <input type="text" name="email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" [(ngModel)]="newUser.email" #email="ngModel"><span *ngIf="email.dirty"><span *ngIf="email.errors?.required">Email field is required.</span><span *ngIf="email.errors?.pattern">Invalid email address.</span></span></p>
+
+	<p>Password: <input type="text" name="password" required minlength="8" [(ngModel)]="newUser.password" #password="ngModel"><span *ngIf="password.dirty"><span *ngIf="password.errors?.required">Password field is required.</span><span *ngIf="password.errors?.minlength">Password Length must be great than 8.</span></span></p>
+
+	<p>Confirm Password: <input type="text" required minlength="8" name="confirmPassword" [(ngModel)]="confirmPassword"><span *ngIf="confirm_password?.length > 0 && (confirm_password != newUser.password)">Password and Confirm Password fields must match</span></p>
+
+	<p>Birthday: <input type="date" required max={{today}} name="birthday" [(ngModel)]="newUser.birthday" #birthday="ngModel"><span *ngIf="birthday.dirty"><span *ngIf="birthday.errors?.required">Birthday field is required.</span></span></p>
+
+	<input type="submit" name="register" value="Register" [disabled]="!formData.form.valid || confirmPassword != newUser.password">
+</form>
+
+{{ newUser | json }}
+
+{{ confirmPassword }}

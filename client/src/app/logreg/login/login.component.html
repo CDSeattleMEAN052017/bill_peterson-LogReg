@@ -1,0 +1,10 @@
+<h3>Login</h3>
+<form (submit)="login()" #formData="ngForm">
+	<p>Email: <input type="text" name="email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" [(ngModel)]="loginInfo.email" #email="ngModel"><span *ngIf="email.dirty"><span *ngIf="email.errors?.required">Email field is required.</span><span *ngIf="email.errors?.pattern">Invalid email address.</span></span></p>
+
+	<p>Password: <input type="text" name="password" required minlength="8" [(ngModel)]="loginInfo.password" #password="ngModel"><span *ngIf="password.dirty"><span *ngIf="password.errors?.required">Password field is required.</span><span *ngIf="password.errors?.minlength">Password Length must be great than 8.</span></span></p>
+
+	<input type="submit" name="login" value="Login" [disabled]="!formData.form.valid">
+</form>
+
+<p *ngIf="errors">{{ errors._body | json }}</p>
